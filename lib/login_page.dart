@@ -11,150 +11,247 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          Container(
-            color: Colors.blueGrey[300],
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.only(
+            left: 18,
+            right: 5,
+            top: 35,
           ),
-          Container(
-            height: 420,
-            width: 400,
-            decoration: const BoxDecoration(
-              color: Color.fromARGB(255, 10, 20, 29),
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(45),
-                topRight: Radius.circular(45),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "WELCOME,",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 27,
+                    fontWeight: FontWeight.w600),
               ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(22.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    height: 20,
+              const Text(
+                "LOGIN",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 27,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(
+                height: 28,
+              ),
+              const SizedBox(
+                width: 360,
+                child: TextField(
+                  style: TextStyle(
+                    color: Colors.black,
                   ),
-                  Center(
-                    child: Image.asset(
-                      'assets/images/google_image.png',
-                      height: 45,
+                  decoration: InputDecoration(
+                    hintText: 'Email or phone',
+                    hintStyle: TextStyle(
+                      fontSize: 20,
+                      color: Colors.grey,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(9)),
+                      borderSide: BorderSide(
+                        color: Colors.grey,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(9)),
+                      borderSide: BorderSide(
+                        color: Colors.blue,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              const SizedBox(
+                width: 360,
+                child: TextField(
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                  decoration: InputDecoration(
+                    hintText: 'Password',
+                    hintStyle: TextStyle(
+                      fontSize: 20,
+                      color: Colors.grey,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(9)),
+                      borderSide: BorderSide(
+                        color: Colors.grey,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(9)),
+                      borderSide: BorderSide(
+                        color: Colors.blue,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    "Forgot password?",
+                    style: TextStyle(
+                      color: Colors.blue[700],
+                      fontSize: 17,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 14,
+                  )
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Divider(
+                      indent: 10,
+                      endIndent: 10,
+                      color: Colors.grey[600],
                     ),
                   ),
                   const Text(
-                    "Login",
+                    "Continue with",
                     style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 27,
+                      fontSize: 16,
                     ),
                   ),
-                  Text(
-                    "Continue to Google",
-                    style: TextStyle(
-                      color: Colors.grey[300],
-                      fontSize: 15,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 28,
-                  ),
-                  const TextField(
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                    decoration: InputDecoration(
-                      hintText: 'Email or phone',
-                      hintStyle: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(9)),
-                        borderSide: BorderSide(
-                          color: Colors.white30,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(9)),
-                        borderSide: BorderSide(
-                          color: Colors.blue,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 28,
-                  ),
-                  Center(
-                    child: Text(
-                      "Forgot password?",
-                      style: TextStyle(
-                        color: Colors.blue[700],
-                        fontSize: 17,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 28,
-                  ),
-                  Center(
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(
-                          context,
-                          'homepage',
-                        );
-                      },
-                      child: Container(
-                        alignment: Alignment.center,
-                        padding: const EdgeInsets.only(left: 15),
-                        height: 65,
-                        width: 280,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.blue[700],
-                        ),
-                        child: const Row(
-                          children: [
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 95),
-                              child: Text(
-                                "Next",
-                                style: TextStyle(
-                                  fontSize: 22,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
+                  Expanded(
+                    child: Divider(
+                      indent: 10,
+                      endIndent: 10,
+                      color: Colors.grey[600],
                     ),
                   ),
                 ],
               ),
-            ),
-          ),
-          Positioned(
-            top: 0,
-            bottom: 600,
-            left: 10,
-            child: GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, 'signupscreen');
-              },
-              child: const Icon(
-                size: 35,
-                Icons.arrow_circle_left_outlined,
-                color: Colors.white,
+              const SizedBox(
+                height: 20,
               ),
-            ),
+              Row(
+                children: [
+                  const SizedBox(
+                    width: 9,
+                  ),
+                  Container(
+                    padding: const EdgeInsets.only(left: 15),
+                    height: 65,
+                    width: 170,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.grey[300],
+                    ),
+                    child: Row(
+                      children: [
+                        Image.asset(
+                          'assets/images/google_image.png',
+                          height: 28,
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        const Text(
+                          "Google",
+                          style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  Container(
+                    height: 65,
+                    width: 170,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.grey[300],
+                    ),
+                    child: Row(
+                      children: [
+                        Image.asset(
+                          'assets/images/facebook.png',
+                          height: 28,
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        const Text(
+                          "Facebook",
+                          style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 28,
+              ),
+              Center(
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      'homepage',
+                    );
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.only(left: 15),
+                    height: 65,
+                    width: 280,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.blue[700],
+                    ),
+                    child: const Row(
+                      children: [
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 95),
+                          child: Text(
+                            "Next",
+                            style: TextStyle(
+                              fontSize: 22,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
