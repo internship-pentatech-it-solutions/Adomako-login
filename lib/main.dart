@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vaultcash/auth.dart';
 import 'package:vaultcash/home_page.dart';
 import 'package:vaultcash/login_page.dart';
-import 'package:vaultcash/onboarding.dart';
+import 'package:vaultcash/sign_up_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       home: const MyAuth(),
       routes: {
         'loginpage': (context) => const LoginPage(),
-        'signupscreen': (context) => const OnboardingPage(),
+        'signuppage': (context) => const SignUpPage(),
         'homepage': (context) => const HomePage(),
       },
     );

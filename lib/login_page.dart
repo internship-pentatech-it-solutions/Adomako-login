@@ -11,6 +11,9 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  bool isLoading = false;
+  bool obscureText = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,27 +80,38 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(
                   width: 360,
                   child: TextField(
+                    obscureText: obscureText,
                     controller: passwordController,
                     style: const TextStyle(
                       color: Colors.black,
                     ),
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       hintText: 'Password',
-                      hintStyle: TextStyle(
+                      hintStyle: const TextStyle(
                         fontSize: 20,
                         color: Colors.grey,
                       ),
-                      enabledBorder: OutlineInputBorder(
+                      enabledBorder: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(9)),
                         borderSide: BorderSide(
                           color: Colors.grey,
                         ),
                       ),
-                      focusedBorder: OutlineInputBorder(
+                      focusedBorder: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(9)),
                         borderSide: BorderSide(
                           color: Colors.blue,
                         ),
+                      ),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          obscureText ? Icons.visibility_off : Icons.visibility,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            obscureText = !obscureText; // Toggle the value
+                          });
+                        },
                       ),
                     ),
                   ),
@@ -122,6 +136,75 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedBox(
                   height: 20,
+                ),
+                Center(
+                  child: GestureDetector(
+                    onTap: () async {
+                      setState(() {
+                        isLoading = true; //start loading
+                      });
+                      try {
+                        await FirebaseAuth.instance.signInWithEmailAndPassword(
+                          email: emailController.text,
+                          password: passwordController.text,
+                        );
+                        Navigator.pushReplacementNamed(context, 'homepage');
+                      } on FirebaseAuthException catch (e) {
+                        String errorMessage;
+                        if (e.code == 'user-not-found') {
+                          errorMessage =
+                              'No user found for that email. (Error Code: ${e.code})';
+                        } else if (e.code == 'wrong-password') {
+                          errorMessage =
+                              'Wrong password provided for that user. (Error Code: ${e.code})';
+                        } else {
+                          errorMessage =
+                              "Error: ${e.code}. ${e.message ?? 'An unknown error occurred.'}";
+                        }
+                        showErrorMessage(errorMessage);
+                      } finally {
+                        setState(() {
+                          isLoading = false; // end loading
+                        });
+                      }
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.only(left: 15),
+                      height: 65,
+                      width: 280,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.blue[700],
+                      ),
+                      child: Row(
+                        children: [
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 95),
+                            child: isLoading
+                                ? const CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                        Colors.white),
+                                  )
+                                : const Text(
+                                    "Log In",
+                                    style: TextStyle(
+                                      fontSize: 22,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 15,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -217,56 +300,32 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(
                   height: 28,
                 ),
-                Center(
-                  child: GestureDetector(
-                    onTap: () async {
-                      try {
-                        await FirebaseAuth.instance.signInWithEmailAndPassword(
-                          email: emailController.text,
-                          password: passwordController.text,
-                        );
-                        Navigator.pushReplacementNamed(context, 'homepage');
-                      } on FirebaseAuthException catch (e) {
-                        if (e.code == 'user-not-found') {
-                          showErrorMessage('No user found for that email.');
-                        } else if (e.code == 'wrong-password') {
-                          showErrorMessage(
-                              'Wrong password provided for that user.');
-                        } else {
-                          showErrorMessage(
-                              "Error: ${e.code}. ${e.message ?? 'An unknown error occurred.'}");
-                        }
-                      }
-                    },
-                    child: Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.only(left: 15),
-                      height: 65,
-                      width: 280,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.blue[700],
-                      ),
-                      child: const Row(
-                        children: [
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 95),
-                            child: Text(
-                              "Log In",
-                              style: TextStyle(
-                                fontSize: 22,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          )
-                        ],
+                const SizedBox(
+                  height: 15,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "Don't have an account?",
+                      style: TextStyle(
+                        fontSize: 16,
                       ),
                     ),
-                  ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, 'signuppage');
+                      },
+                      child: Text(
+                        " Sign Up",
+                        style: TextStyle(
+                          color: Colors.blue[800],
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
