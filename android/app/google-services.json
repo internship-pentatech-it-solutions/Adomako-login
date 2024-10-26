@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "777971424119",
+    "project_id": "pt-auth-f47aa",
+    "storage_bucket": "pt-auth-f47aa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:777971424119:android:4863b1a1e10e6490401f72",
+        "android_client_info": {
+          "package_name": "com.example.vaultcash"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDg8LmGh_z6HCknykU3PGWv1-ywBHJup18"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
